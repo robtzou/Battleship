@@ -1,4 +1,4 @@
 # Battleship
 Final Project repo for Battleship game.
 
-Group Members: Robert Tzou, Jacklyn Dang, Oswalt Vasquez , .
+Group Members: Robert Tzou, Jacklyn Dang, Oswalt Vasquez , Christopher Okure.
