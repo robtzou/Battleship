@@ -10,21 +10,23 @@ import board
     One Destroyer  - 2
 """
 
-class GameState():
+def shotValid(self):
+    if None not in board.coordinates:
+        raise ValueError("Shot not within board limits.")
+
+def winCondition(self, sunken, ships):
     pass
 
-    def shotValid(self):
-        if None not in board.coordinates:
-            raise ValueError("Shot not within board limits.")
-
-    def winCondition(self, sunken, ships):
-        pass
-
-    def boardVisual(board):
-        print("  " + " ".join(str(i) for i in range(board.board_size)))
-        for id_num, row in enumerate(board.board_lst):
-            print(str(id_num) + " " + " ".join(row))
-
+def boardVisual(board):
+    cpuBoard = ["~" for _ in range(board.board_size) for _ in range(board.board_size)]
+    print("  " + " ".join(str(i) for i in range(board.board_size)))
+    for column, row in enumerate(board):
+        print(str(column) + " " + " ".join(row))
+            
+    yourBoard = ["~" for _ in range(board.board_size) for _ in range(board.board_size)]
+    print("  " + " ".join(str(i) for i in range(board.board_size)))
+    for column, row in enumerate(board):
+        print(str(column) + " " + " ".join(row))
 
 def play(self):
     """ Play Battleship"""
