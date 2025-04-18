@@ -1,0 +1,28 @@
+
+
+### oswalt 
+
+def attack():
+
+    while True:
+        print("It is now player's 1 turn")
+        guessed_row = dict_name(input("guess the row:"))
+        guessed_column = dict_name(input("guess the column:"))
+        if guessed_row == row_of_ship and guessed_column == column_of_ship: 
+            print("You hit the ship!")
+            break
+        else:
+            print("You did not hit anything!")
+            break
+        
+        
+    print("It is now player's 2 turn")
+    guessed_row = dict_name(input("guess the row:"))
+    guessed_column = dict_name(input("guess the column:"))
+    if guessed_row == row_of_ship and guessed_column == column_of_ship: 
+        print("You hit the ship!")
+        break
+    else:
+        print("You did not hit anything!")
+        break
+        
