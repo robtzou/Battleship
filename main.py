@@ -1,7 +1,4 @@
-from argparse import ArgumentParser
-import random
-import sys
-import board
+from board import Backend
 
 """ A one player version of speed-battleship where 
     the opponent is a computer.
@@ -10,39 +7,34 @@ import board
     One Destroyer  - 2
 """
 
-def shotValid(self):
-    if None not in board.coordinates:
-        raise ValueError("Shot not within board limits.")
+class Battleship:
 
-def winCondition(self, sunken, ships):
-    pass
+    def __init__(self, backend_instance):
+        self.backend = backend_instance
 
-def boardVisual(board):
-    cpuBoard = ["~" for _ in range(board.board_size) for _ in range(board.board_size)]
-    print("  " + " ".join(str(i) for i in range(board.board_size)))
-    for column, row in enumerate(board):
-        print(str(column) + " " + " ".join(row))
-            
-    yourBoard = ["~" for _ in range(board.board_size) for _ in range(board.board_size)]
-    print("  " + " ".join(str(i) for i in range(board.board_size)))
-    for column, row in enumerate(board):
-        print(str(column) + " " + " ".join(row))
+    def boardVisual(self):
+        board_size = self.backend.board_size
 
-def play(self):
-    """ Play Battleship"""
-    pass
+        # Make a fresh copy of the board
+        visual_board = [["~" for _ in range(board_size)] for _ in range(board_size)]
 
-def main():
-    pass
+        # Combine all ship coordinates
+        ships = self.backend.battleship + self.backend.submarine + self.backend.destroyer
 
-def parse_args(arglist):
-    parser = ArgumentParser()
-    parser.add_argument("playerName")
-    parser.add_argument("")
-    parser.add_argument("")
+        # Mark ship positions on the board with "B"
+        for x, y in ships:
+            # Adjust for 1-based to 0-based indexing
+            visual_board[x - 1][y - 1] = "B"
 
-    return parser.parse_args(arglist)
+        # Display board
+        print("  " + " ".join(str(i + 1) for i in range(board_size)))
+        for i, row in enumerate(visual_board):
+            print(str(i + 1) + " " + " ".join(row))
+
+        return visual_board
+
 
 if __name__ == "__main__":
-    args = parse_args(sys.argv[1:])
-    main(args)
+    play = Backend()
+    visual = Battleship(play)
+    visual.boardVisual()
