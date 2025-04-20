@@ -16,25 +16,31 @@ class Battleship:
         board_size = self.backend.board_size
 
         # Make a fresh copy of the board
-        visual_board = [["~" for _ in range(board_size)] for _ in range(board_size)]
+        cpuBoard    = [["~" for _ in range(board_size)] for _ in range(board_size)]
+        playerBoard = [["~" for _ in range(board_size)] for _ in range(board_size)]
 
         # Combine all ship coordinates
         ships = self.backend.battleship + self.backend.submarine + self.backend.destroyer
 
         # Mark ship positions on the board with "B"
         for x, y in ships:
-            # Adjust for 1-based to 0-based indexing
-            visual_board[x - 1][y - 1] = "B"
+            # Since Python count starts at zero.
+            playerBoard[x - 1][y - 1] = "B"
 
-        # Display board
+        # Display boards
+        print("CPU Board:")
         print("  " + " ".join(str(i + 1) for i in range(board_size)))
-        for i, row in enumerate(visual_board):
+        for i, row in enumerate(cpuBoard):
+            print(str(i + 1) + " " + " ".join(row))
+        print("  " + " ".join(str(i + 1) for i in range(board_size)))
+        print("Player Board:")
+        for i, row in enumerate(playerBoard):
             print(str(i + 1) + " " + " ".join(row))
 
-        return visual_board
-
+        return playerBoard, cpuBoard
 
 if __name__ == "__main__":
     play = Backend()
+    play.shipPlacement()
     visual = Battleship(play)
     visual.boardVisual()
