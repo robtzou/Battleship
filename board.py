@@ -1,8 +1,5 @@
 import random
 
-def coin():
-    return random.choice([0,1])
-
 class Backend:
     """
     Setup the game to be played.
@@ -64,7 +61,12 @@ class Backend:
             if placement[1] + self.lendestroyer - 1 <= self.board_size:
                 self.destroyer = [(placement[0], placement[1] + i ) for i in range(self.lendestroyer)]
                 return self.battleship, self.submarine, self.destroyer
-            
+
+    def cpuPlacement(self):
+        """
+        Must have an equal chance of placing horizontally or vertically.
+        Must not overlap coordinates.
+        """ 
 # computers
 
         while len(self.battleship_cpu) <= self.lenbattleship_cpu:
@@ -86,4 +88,12 @@ class Backend:
             if placement[1] + self.lendestroyer_cpu - 1 <= self.board_size:
                 self.destroyer_cpu = [(placement[0], placement[1] + i ) for i in range(self.lendestroyer_cpu)]
                 return self.battleship_cpu, self.submarine_cpu, self.destroyer_cpu
-            
+
+if __name__ == "__main__":
+# Learn to run these methods.
+
+    backend = Backend()  # Create an instance of Backend
+    player_ships = backend.shipPlacement()  # Call shipPlacement on the instance
+    cpu_ships = backend.cpuPlacement()  # Call cpuPlacement on the instance
+    print("Player's ships:", player_ships)
+    print("CPU's ships:", cpu_ships)
