@@ -1,4 +1,5 @@
 from board import Backend
+import cowsay
 
 """ A one player version of speed-battleship where 
     the opponent is a computer.
@@ -8,39 +9,103 @@ from board import Backend
 """
 
 class Battleship:
-
+    """Displays the game"""
     def __init__(self, backend_instance):
-        self.backend = backend_instance
-
+        self.backend_instance = backend_instance
     def boardVisual(self):
-        board_size = self.backend.board_size
+        """Player board"""
+        board_size = 6
 
-        # Make a fresh copy of the board
-        cpuBoard    = [["~" for _ in range(board_size)] for _ in range(board_size)]
-        playerBoard = [["~" for _ in range(board_size)] for _ in range(board_size)]
+        # New board
+        visual_board = [["~" for _ in range(board_size)] for _ in range(board_size)]
 
-        # Combine all ship coordinates
-        ships = self.backend.battleship + self.backend.submarine + self.backend.destroyer
+        player_ships = (
+        self.backend_instance.battleship +
+        self.backend_instance.submarine +
+        self.backend_instance.destroyer
+        )
 
-        # Mark ship positions on the board with "B"
-        for x, y in ships:
-            # Since Python count starts at zero.
-            playerBoard[x - 1][y - 1] = "B"
+        # Place ships
+        for x, y in player_ships:
+            visual_board[x - 1][y - 1] = "B"
+            
+        # Mark CPU hits on player board
+        for x, y in self.backend_instance.cpu_hits:
+            visual_board[x - 1][y - 1] = "X"
+            
+        # Mark CPU misses on player board
+        for x, y in self.backend_instance.cpu_shots:
+            if (x, y) not in self.backend_instance.cpu_hits:
+                visual_board[x - 1][y - 1] = "O"
 
-        # Display boards
-        print("CPU Board:")
+        # Display board
+        print("\nYour Board:")
         print("  " + " ".join(str(i + 1) for i in range(board_size)))
-        for i, row in enumerate(cpuBoard):
-            print(str(i + 1) + " " + " ".join(row))
-        print("  " + " ".join(str(i + 1) for i in range(board_size)))
-        print("Player Board:")
-        for i, row in enumerate(playerBoard):
+        for i, row in enumerate(visual_board):
             print(str(i + 1) + " " + " ".join(row))
 
-        return playerBoard, cpuBoard
+    def cpuVisual(self):
+        board_size = 6
+
+        visual_board = [["~" for _ in range(board_size)] for _ in range(board_size)]
+        
+        # We don't show CPU ships, only hits and misses
+        
+        # Mark player hits
+        for x, y in self.backend_instance.player_hits:
+            visual_board[x - 1][y - 1] = "X"
+            
+        # Mark player misses
+        for x, y in self.backend_instance.player_shots:
+            if (x, y) not in self.backend_instance.player_hits:
+                visual_board[x - 1][y - 1] = "O"
+        
+        # Display cpu board
+        print("\nCPU Board:")
+        print("  " + " ".join(str(i + 1) for i in range(board_size)))
+        for i, row in enumerate(visual_board):
+            print(str(i + 1) + " " + " ".join(row))
+
+def gameloop():
+    """ Make a mainloop that iterates to simulate the entire game. """
+    
+    backend = Backend()
+    backend.shipPlacement()
+    backend.cpuPlacement()
+    game = Battleship(backend)
+
+# welcome user and start the game
+    print(cowsay.cow("Welcome to Battleship!"))
+    print("B = Your Ships")
+
+    game.boardVisual()
+    captain = input("Ahoy Captain! What is your name?")
+    while True:
+        replace = input("Do you want to replace your ships? (y/n): ")
+        if not replace == "n":
+                backend.replacement()
+                game.boardVisual()
+        else:
+            print("Game start!")
+            break
+    
+    # Game sequence loop
+    game_over = False
+    while not game_over:
+        game.boardVisual()
+        game.cpuVisual()
+
+        # Player turn
+        try:
+            coordinate_guess = input(f"\n Captain {captain}! Enter coordinates for your shot! ex. (1,1): ")
+            # print("Please enter a valid coordinate.")
+            print(f"Your shot was... a [result]")
+            print("\n CPU takes their shot...")
+            break
+
+
+        except ValueError:
+            print("Please enter a valid coordinate.")
 
 if __name__ == "__main__":
-    play = Backend()
-    play.shipPlacement()
-    visual = Battleship(play)
-    visual.boardVisual()
+    gameloop()
