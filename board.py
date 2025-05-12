@@ -11,8 +11,7 @@ class Backend:
         self.Xcord = [1,2,3,4,5,6,]
         self.Ycord = [1,2,3,4,5,6,]
         self.board_size = 6
-        self.coordinates = set([(x, y) for x in self.Xcord for y in self.Ycord])
-        
+        self.coordinates = set([(x, y) for x in self.Xcord for y in self.Ycord])        
 
 # players boats
         self.battleship   = []
@@ -37,24 +36,84 @@ class Backend:
         self.player_hits = []
         self.cpu_hits    = []
 
-    def place_ship(self, length):
+    def cpu_shoot(self):
+        """ CPU takes a shot at player board """
+        # Randomly select a coordinate from the available coordinates
+        shot = random.choice(self.coordinates)    
+
+        # Check if the shot hits any of the player's ships
+        if shot in self.battleship or shot in self.submarine or shot in self.destroyer:
+            self.cpu_hits.append(shot)
+            print(f"CPU hit at {shot}")
+        else:
+            self.cpu_shots.append(shot)
+            print(f"CPU miss at {shot}")
+        
+        # Remove the shot from available coordinates
+        self.coordinates.remove(shot)
+        # Check if any ships are sunk
+        self.sunk_ships()
+
+    def player_shoot(self):
+        """
+        Handles player shot input, validates it, checks for hits, 
+        and updates the game state accordingly.
+
+        Side effects:
+        - Modifies self.player_shots and self.player_hits lists.
+        - Prints result of the shot.
+        - Removes the coordinate from self.coordinates if it's a new shot.
+        """
         while True:
-            placement = random.choice(list(self.coordinates))
-            direction = random.choice(['horizontal', 'vertical'])
+            try:
+                raw_input = input("Captain! Where should we fire?! (Format: Int,Int 1-6) ")
+                x_str, y_str = raw_input.strip().split(',')
+                x, y = int(x_str), int(y_str)
 
-            if direction == 'horizontal' and placement[1] + length - 1 <= self.board_size:
-                ship = [(placement[0], placement[1] + i) for i in range(length)]
-            elif direction == 'vertical' and placement[0] + length - 1 <= self.board_size:
-                ship = [(placement[0] + i, placement[1]) for i in range(length)]
-            else:
-                continue
+                if not (1 <= x <= 6 and 1 <= y <= 6):
+                    print("Coordinates must be between 1 and 6. Try again.")
+                    continue
 
-            if all(coord in self.coordinates for coord in ship):
-                self.coordinates.difference_update(ship)
-                return ship
+                shot = (x, y)
+
+                if shot in self.player_shots:
+                    print("You've already fired at this location! Try again.")
+                    continue
+
+                break
+            except ValueError:
+                print("Invalid input format. Use two integers like 3,5.")
+
+        # Check if the shot hits any CPU ships
+        if shot in self.battleship_cpu or shot in self.submarine_cpu or shot in self.destroyer_cpu:
+            self.player_hits.append(shot)
+            print(f"Direct hit at {shot}!")
+        else:
+            print(f"Missed shot at {shot}.")
+
+        self.player_shots.append(shot)
+        if shot in self.coordinates:
+            self.coordinates.remove(shot)
+
+    def sunk_ships(self):
+        """Displays game progress"""
+        
+        while True:
+            if self.player_hits == self.battleship_cpu:
+                print("CPU: You sunk my Battleship! ")
+            if self.player_hits == self.submarine_cpu:
+                print("CPU: You sunk my Submarine! ")
+            if self.player_hits == self.destroyer_cpu:
+                print("CPU: You sunk my Destroyer! ")
+            if self.player_hits == self.battleship:
+                print("Your Battleship has been sunk..")
+            if self.player_hits == self.submarine:
+                print("Your Submarine has been sunk..")
+            if self.player_hits == self.destroyer:
+                print("Your Destroyer has been sunk..")
+            break
 
     def shipPlacement(self):
-
         """Allow player to replace ships within game loop"""
         
         self.battleship = []
@@ -66,7 +125,7 @@ class Backend:
         self.destroyer  = self.place_ship(self.lendestroyer)
 
     def cpuPlacement(self):
-        
+        """Calls upon place_ship function to place CPU ships"""        
         self.battleship_cpu = []
         self.submarine_cpu  = []
         self.destroyer_cpu  = []
@@ -74,11 +133,3 @@ class Backend:
         self.battleship_cpu = self.place_ship(self.lenbattleship)
         self.submarine_cpu  = self.place_ship(self.lensubmarine)
         self.destroyer_cpu  = self.place_ship(self.lendestroyer)
-
-def player_shoot(self, x, y):
-    """ Player takes a shot at CPU board """
-    # frontend = Battleship()
-    # shot = ()
-    # tuple_guess = tuple(map(int, .split(",")))
-    # if tuple_guess not in self.battleship_cpu or self.submarine_cpu or self.destroyer_cpu:
-    pass

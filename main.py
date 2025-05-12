@@ -1,7 +1,8 @@
 from board import Backend
 from argparse import ArgumentParser
 
-""" A one player version of speed-battleship where 
+""" 
+    A one player version of speed-battleship where 
     the opponent is a computer.
     One Battleship - 4
     One Submarine  - 3
@@ -12,6 +13,7 @@ class Battleship:
     """Displays the game"""
     def __init__(self, backend_instance):
         self.backend_instance = backend_instance
+        
     def boardVisual(self):
         """Player board"""
         board_size = 6
@@ -66,6 +68,13 @@ class Battleship:
         for i, row in enumerate(visual_board):
             print(str(i + 1) + " " + " ".join(row))
 
+def parse_args(arglist):
+    """ Parse command-line arguments. 
+    """
+    parser = ArgumentParser()
+    parser.add_argument("names", nargs="*", help="enter name")
+    return parser.parse_args(arglist)
+
 def gameloop():
     """ Make a mainloop that iterates to simulate the entire game. """
     
@@ -76,10 +85,9 @@ def gameloop():
 
 # welcome user and start the game
     print("Welcome to Battleship!")
-    print("B = Your Ships")
+    print("B = Your Ships, X = Hit, O = Miss")
 
     game.boardVisual()
-    captain = input("Ahoy Captain! What is your name?")
     while True:
         replace = input("Do you want to replace your ships? (y/n): ")
         if not replace == "n":
@@ -97,10 +105,9 @@ def gameloop():
 
         # Player turn
         try:
-            coordinate_guess = input(f"\n Captain {captain}! Enter coordinates for your shot! ex. (1,1): ")
-            # print("Please enter a valid coordinate.")
-            print(f"Your shot was... a [result]")
-            print("\n CPU takes their shot...")
+            args = parse_args(sys.argv[1:])
+            coordinate_guess = input(f"\n Captain {args.names}! Enter coordinates for your shot! ex. (1,1): ")
+            
             break
 
 
@@ -109,11 +116,3 @@ def gameloop():
 
 if __name__ == "__main__":
     gameloop()
-
-
-def parse_args(arglist):
-    """ Parse command-line arguments. 
-    """
-    parser = ArgumentParser()
-    parser.add_argument("names", nargs="*", help="enter name")
-    return parser.parse_args(arglist)
