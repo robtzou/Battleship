@@ -1,5 +1,5 @@
 from board import Backend
-import cowsay
+from argparse import ArgumentParser
 
 """ A one player version of speed-battleship where 
     the opponent is a computer.
@@ -75,7 +75,7 @@ def gameloop():
     game = Battleship(backend)
 
 # welcome user and start the game
-    print(cowsay.cow("Welcome to Battleship!"))
+    print("Welcome to Battleship!")
     print("B = Your Ships")
 
     game.boardVisual()
@@ -109,3 +109,11 @@ def gameloop():
 
 if __name__ == "__main__":
     gameloop()
+
+
+def parse_args(arglist):
+    """ Parse command-line arguments. 
+    """
+    parser = ArgumentParser()
+    parser.add_argument("names", nargs="*", help="enter name")
+    return parser.parse_args(arglist)
