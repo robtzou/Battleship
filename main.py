@@ -83,7 +83,7 @@ def gameloop():
     while True:
         replace = input("Do you want to replace your ships? (y/n): ")
         if not replace == "n":
-                backend.replacement()
+                backend.shipPlacement()
                 game.boardVisual()
         else:
             print("Game start!")
