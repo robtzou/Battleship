@@ -1,5 +1,7 @@
+import random
 from board import Backend
 from argparse import ArgumentParser
+
 
 """ 
     A one player version of speed-battleship where 
@@ -13,7 +15,7 @@ class Battleship:
     """Displays the game"""
     def __init__(self, backend_instance):
         self.backend_instance = backend_instance
-        
+
     def boardVisual(self):
         """Player board"""
         board_size = 6
@@ -75,44 +77,61 @@ def parse_args(arglist):
     parser.add_argument("names", nargs="*", help="enter name")
     return parser.parse_args(arglist)
 
+def coin_toss():
+    return random.choice(['heads','tails'])
+
 def gameloop():
-    """ Make a mainloop that iterates to simulate the entire game. """
-    
+    """Main loop to simulate the entire Battleship game."""
+
+    import sys
     backend = Backend()
     backend.shipPlacement()
     backend.cpuPlacement()
     game = Battleship(backend)
 
-# welcome user and start the game
     print("Welcome to Battleship!")
     print("B = Your Ships, X = Hit, O = Miss")
 
     game.boardVisual()
+
     while True:
         replace = input("Do you want to replace your ships? (y/n): ")
-        if not replace == "n":
-                backend.shipPlacement()
-                game.boardVisual()
-        else:
-            print("Game start!")
+        if replace == "y":
+            backend.shipPlacement()
+            game.boardVisual()
+            print("Game start!\n")
             break
-    
-    # Game sequence loop
-    game_over = False
-    while not game_over:
+        elif replace == "n":
+            print("Game start!\n")
+            break
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
+
+    args = parse_args(sys.argv[1:])
+    print("Captain", *args.names, "!")
+
+    # Main game loop
+    while not backend.check_game_over():
         game.boardVisual()
         game.cpuVisual()
 
-        # Player turn
-        try:
-            args = parse_args(sys.argv[1:])
-            coordinate_guess = input(f"\n Captain {args.names}! Enter coordinates for your shot! ex. (1,1): ")
-            
-            break
+        # Player Turn
+        valid_shot = False
+        while not valid_shot:
+            try:
+                shot_input = input("Enter coordinates for your shot (e.g. 2,3): ")
+                valid_shot = backend.player_shoot(shot_input)
+                if not valid_shot:
+                    print("Invalid shot or already taken. Try again.")
+            except (ValueError, IndexError):
+                print("Invalid format. Please enter coordinates like 2,3.")
 
+        # CPU Turn
+        backend.cpu_shoot()
 
-        except ValueError:
-            print("Please enter a valid coordinate.")
+    print("\nGame Over!")
+    winner = backend.get_winner()
+    print(f"The winner is: {winner}")
 
 if __name__ == "__main__":
     gameloop()
