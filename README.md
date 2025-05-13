@@ -3,6 +3,10 @@ Final Project repo for Battleship game.
 
 Group Members: Robert Tzou, Jacklyn Dang, Oswalt Vasquez , Christopher Okure.
 
+# How to run program
+
+# How to play
+
 # Attribution Table
 
 | Method / Function | Author Name | Techniques Demonstrated |

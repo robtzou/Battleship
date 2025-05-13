@@ -183,23 +183,23 @@ class Backend:
 
     def shipPlacement(self):
         """
-    Author: Robert Tzou
+        Author: Robert Tzou
 
-    Places all player ships on the board at the start of the game loop.
+        Places all player ships on the board at the start of the game loop.
 
-    This method initializes and assigns positions for the player's battleship, 
-    submarine, and destroyer using the `place_ship` method. Each ship is placed 
-    randomly and without overlap within the available coordinates.
+        This method initializes and assigns positions for the player's battleship, 
+        submarine, and destroyer using the `place_ship` method. Each ship is placed 
+        randomly and without overlap within the available coordinates.
 
-    Python Techniques Used:
-    - Method calls for encapsulated ship placement logic
-    - Attribute reassignment to update ship positions
+        Python Techniques Used:
+        - Method calls for encapsulated ship placement logic
+        - Attribute reassignment to update ship positions
 
-    Side Effects:
-        - Modifies `self.battleship`, `self.submarine`, and `self.destroyer` 
-          with new coordinate lists.
-        - Consumes coordinates from `self.coordinates` set.
-        """
+        Side Effects:
+            - Modifies `self.battleship`, `self.submarine`, and `self.destroyer` 
+            with new coordinate lists.
+            - Consumes coordinates from `self.coordinates` set.
+            """
         
         self.battleship =[]
         self.submarine = []
