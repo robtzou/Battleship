@@ -4,7 +4,9 @@ Final Project repo for Battleship game.
 Group Members: Robert Tzou, Jacklyn Dang, Oswalt Vasquez , Christopher Okure.
 
 # How to run program
-Open your terminal, and make sure your working directory is the Battleship folder. /Battleship
+
+Open your terminal, run the following: git clone https://github.com/robtzou/Battleship
+Make sure the cloned folder is in your wording directory. e.g. pwd -> Downloads/Battleship
 To run the program type: python3 main.py [name]
 
 
