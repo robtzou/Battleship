@@ -1,11 +1,23 @@
 import random
 
 class Backend:
+    """Setup the game to be played. The ship size and the ship placement for CPU
+    player and human player.
+
+
+    Attributes:
+        board_size(int): 6 by 6 board.
+        Xcords(list): x coordinates of board game
+        Ycords(list): y coordinates of board game
+        coordinates(list of tuple): pairs of x and y coordintes
+        
+        battleship_cpu(list): coordinates of ship of CPU
+        player_shots)(list): player shots on CPU ship
+        cpu_shots(list): shots on the human player
+        
+        player_hits(list): all the coordinates
+        cpu_hits(list): all the coordinates
     """
-    Setup the game to be played.
-    Place boats.
-    """
-    
     def __init__(self):
         
         self.Xcord = [1,2,3,4,5,6,]
@@ -128,6 +140,21 @@ class Backend:
         return player_sunk or cpu_sunk
     
     def place_ship(self, length):
+
+        """ 
+        Author: Robert Tzou, Technique: List / Set Comprehension
+
+        Places the ships within the limits of the board.
+        Determines horizontal or vertical placement based on random choice.
+
+        Args:
+
+        Returns: 
+
+        Side effects: Populates a list with selected coordinates.
+
+
+        """        
         while True:
             placement = random.choice(list(self.coordinates))
             direction = random.choice(['horizontal', 'vertical'])
@@ -146,7 +173,7 @@ class Backend:
     def shipPlacement(self):
         """Allow player to replace ships within game loop"""
         
-        self.battleship = []
+        self.battleship =[]
         self.submarine = []
         self.destroyer = []
         
@@ -155,7 +182,8 @@ class Backend:
         self.destroyer  = self.place_ship(self.lendestroyer)
 
     def cpuPlacement(self):
-        """Calls upon place_ship function to place CPU ships"""        
+        """Calls upon place_ship function to place CPU ships"""
+
         self.battleship_cpu = []
         self.submarine_cpu  = []
         self.destroyer_cpu  = []

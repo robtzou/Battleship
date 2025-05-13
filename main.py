@@ -1,4 +1,3 @@
-import random
 from board import Backend
 from argparse import ArgumentParser
 import sys
@@ -6,13 +5,20 @@ import sys
 """ 
     A one player version of speed-battleship where 
     the opponent is a computer.
+
+    Board is a 6 x 6 with the following ships.    
+    
     One Battleship - 4
     One Submarine  - 3
     One Destroyer  - 2
 """
 
 class Battleship:
-    """Displays the game
+    """
+    
+
+    Displays the game.
+    
     Attributes:
         backend_instance: instance of the backend game logic that stores 
             game state, including player shots, hits, and other relevant data.
@@ -28,6 +34,8 @@ class Battleship:
 
     def boardVisual(self):
         """
+        Author: Robert Tzou
+
         The board includes:
             - Player ship positions (marked with "B")
             - CPU hits on player ships (marked with "X")
@@ -60,7 +68,10 @@ class Battleship:
             print(str(i + 1) + " " + " ".join(row))
 
     def cpuVisual(self):
-        """Displays the current visual state of the cpu's game board.
+        """
+        Author: Robert Tzou
+
+        Displays the current visual state of the cpu's game board.
         
         This method shows the player's actions on the CPU's board, including:
             - Hits marked with "X"
@@ -84,17 +95,47 @@ class Battleship:
             print(str(i + 1) + " " + " ".join(row))
 
 def parse_args(arglist):
-    """ Parse command-line arguments. 
+    """
+    Author: Oswalt Vasquez
+
+    Parse command-line arguments. 'ArgParser'
+
+    This method displays the name input from the command-line.
+        Example: python3 main.py Oswalt
+
+    Side effects:
+        - Updates name within the player name.
+    
+    Args:
+        - Name entered
+    Returns:
+        - None
     """
     parser = ArgumentParser()
     parser.add_argument("names", nargs="*", help="enter name")
     return parser.parse_args(arglist)
 
-def coin_toss():
-    return random.choice(['heads','tails'])
-
 def gameloop():
-    """Main loop to simulate the entire Battleship game."""
+    """
+    Author: Robert Tzou
+
+    Setup the game to be played. This function initializes the game state, 
+    including board dimensions, coordinate tracking, and ship placement for 
+    both the CPU and human player.
+
+    Attributes:
+        board_size (int): The size of the game board (6x6).
+        Xcords (list): List of possible x-coordinates for the board.
+        Ycords (list): List of possible y-coordinates for the board.
+        coordinates (list of tuple): All valid (x, y) coordinate pairs on the board.
+        
+        battleship_cpu (list): List of coordinate tuples representing the CPU's ship locations.
+        player_shots (list): Coordinates where the player has fired shots at the CPU's board.
+        cpu_shots (list): Coordinates where the CPU has fired shots at the player's board.
+        
+        player_hits (list): Coordinates where the player's shots successfully hit CPU ships.
+        cpu_hits (list): Coordinates where the CPU's shots successfully hit player ships.
+    """
 
     backend = Backend()
     backend.shipPlacement()
@@ -143,6 +184,7 @@ def gameloop():
 
     print("\nGame Over!")
     backend.check_game_over()
+    backend.sunk_ships()
 
 if __name__ == "__main__":
     gameloop()
