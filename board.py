@@ -1,9 +1,21 @@
 import random
 
 class Backend:
-    """
-    Setup the game to be played.
-    Place boats.
+   """Setup the game to be played. The ship size and the ship placement for CPU 
+    player and human player.
+
+    Attributes:
+        board_size(int): 6 by 6 board.
+        Xcords(list): x coordinates of board game
+        Ycords(list): y coordinates of board game
+        coordinates(list of tuple): pairs of x and y coordintes
+        
+        battleship_cpu(list): coordinates of ship of CPU
+        player_shots)(list): player shots on CPU ship
+        cpu_shots(list): shots on the human player
+        
+        player_hits(list): all the coordinates
+        cpu_hits(list): all the coordinates 
     """
     
     def __init__(self):
