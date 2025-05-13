@@ -19,7 +19,7 @@ First, you start by putting your name. Then the terminal will give you options f
 
 | Method / Function | Author Name | Techniques Demonstrated |
 |-------------------|-------------|-------------------------|
-| place_ships | Robert | Set Operations / Tuple Comprehensions |
+| place_ships | Robert | Set Operations / Sequence Unpacking |
 | boardVisual / cpuVisual | Robert | List Comprehension |
 | parse_args  | Oswalt Vasquez | ArgumentParser class  |
 | check_game_over | Christopher Okure | Boolean |
