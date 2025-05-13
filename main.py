@@ -117,7 +117,8 @@ def parse_args(arglist):
 
 def gameloop():
     """
-    Author: Robert Tzou
+    Author: Christopher Okure
+    Technique: Composition of two custom classes
 
     Setup the game to be played. This function initializes the game state, 
     including board dimensions, coordinate tracking, and ship placement for 
