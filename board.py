@@ -128,7 +128,15 @@ class Backend:
             break
 
     def check_game_over(self):
-        """Return True if either the player or CPU has no ships left afloat."""
+        """Author: Christopher Okure
+        Technique: boolean
+        
+        Checks whether the game is over by determining if all ships of either the player or CPU are sunk.
+
+        Returns:
+            str: A victory or defeat message if all ships of the CPU or player are sunk, respectively.
+            bool: False if the game is not yet over. True if either the player or CPU has no ships left afloat.
+        """
     
         player_sunk = all(coord in self.cpu_hits for ship in [self.battleship, self.submarine, self.destroyer] for coord in ship)
         cpu_sunk = all(coord in self.player_hits for ship in [self.battleship_cpu, self.submarine_cpu,
