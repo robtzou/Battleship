@@ -1,10 +1,16 @@
 import random
 
 class Backend:
+<<<<<<< HEAD
     """Setup the game to be played. The ship size and the ship placement for CPU
     player and human player.
 
 
+=======
+   """Setup the game to be played. The ship size and the ship placement for CPU 
+    player and human player.
+
+>>>>>>> origin
     Attributes:
         board_size(int): 6 by 6 board.
         Xcords(list): x coordinates of board game
@@ -16,8 +22,14 @@ class Backend:
         cpu_shots(list): shots on the human player
         
         player_hits(list): all the coordinates
+<<<<<<< HEAD
         cpu_hits(list): all the coordinates
     """
+=======
+        cpu_hits(list): all the coordinates 
+    """
+    
+>>>>>>> origin
     def __init__(self):
         
         self.Xcord = [1,2,3,4,5,6,]
