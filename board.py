@@ -1,16 +1,10 @@
 import random
 
 class Backend:
-<<<<<<< HEAD
-    """Setup the game to be played. The ship size and the ship placement for CPU
+    """Setup the game to be played. The ship size and the ship placement for CPU 
     player and human player.
 
 
-=======
-   """Setup the game to be played. The ship size and the ship placement for CPU 
-    player and human player.
-
->>>>>>> origin
     Attributes:
         board_size(int): 6 by 6 board.
         Xcords(list): x coordinates of board game
@@ -22,14 +16,9 @@ class Backend:
         cpu_shots(list): shots on the human player
         
         player_hits(list): all the coordinates
-<<<<<<< HEAD
-        cpu_hits(list): all the coordinates
-    """
-=======
         cpu_hits(list): all the coordinates 
     """
     
->>>>>>> origin
     def __init__(self):
         
         self.Xcord = [1,2,3,4,5,6,]
@@ -152,21 +141,31 @@ class Backend:
         return player_sunk or cpu_sunk
     
     def place_ship(self, length):
+        """
+        Author: Robert Tzou
 
-        """ 
-        Author: Robert Tzou, Technique: List / Set Comprehension
+        Randomly places a ship of specified length on the game board.
 
-        Places the ships within the limits of the board.
-        Determines horizontal or vertical placement based on random choice.
+            This function attempts to place a ship either horizontally or vertically 
+            within the bounds of the board. It ensures that the selected coordinates 
+            do not overlap with already occupied positions by checking against the 
+            `self.coordinates` set.
 
-        Args:
+            Python Techniques Used:
+            - Random selection with `random.choice()`
+            - List comprehension to generate ship coordinates
+            - Set operations (`difference_update`) for efficient coordinate management
 
-        Returns: 
+            Args:
+                length (int): The length of the ship to place.
 
-        Side effects: Populates a list with selected coordinates.
+            Returns:
+                list[tuple[int, int]]: A list of (row, col) coordinate tuples representing 
+                the placed ship's location on the board.
 
-
-        """        
+            Side Effects:
+                Mutates `self.coordinates` by removing the coordinates occupied by the placed ship.
+            """        
         while True:
             placement = random.choice(list(self.coordinates))
             direction = random.choice(['horizontal', 'vertical'])
@@ -183,7 +182,24 @@ class Backend:
                 return ship
 
     def shipPlacement(self):
-        """Allow player to replace ships within game loop"""
+        """
+    Author: Robert Tzou
+
+    Places all player ships on the board at the start of the game loop.
+
+    This method initializes and assigns positions for the player's battleship, 
+    submarine, and destroyer using the `place_ship` method. Each ship is placed 
+    randomly and without overlap within the available coordinates.
+
+    Python Techniques Used:
+    - Method calls for encapsulated ship placement logic
+    - Attribute reassignment to update ship positions
+
+    Side Effects:
+        - Modifies `self.battleship`, `self.submarine`, and `self.destroyer` 
+          with new coordinate lists.
+        - Consumes coordinates from `self.coordinates` set.
+        """
         
         self.battleship =[]
         self.submarine = []
@@ -194,7 +210,26 @@ class Backend:
         self.destroyer  = self.place_ship(self.lendestroyer)
 
     def cpuPlacement(self):
-        """Calls upon place_ship function to place CPU ships"""
+        """
+
+        Author: Robert Tzou        
+
+        Randomly places all CPU ships on the board.
+
+        Initializes and assigns positions for the CPU's battleship, submarine, 
+        and destroyer using the `place_ship` method. Ensures ships do not 
+        overlap and stay within board bounds.
+
+        Python Techniques Used:
+        - Method reuse (`place_ship`) for consistent logic
+        - Attribute reassignment for organizing CPU ship positions
+
+        Side Effects:
+            - Updates `self.battleship_cpu`, `self.submarine_cpu`, and `self.destroyer_cpu`
+            with lists of coordinate tuples.
+            - Modifies `self.coordinates` by removing occupied positions.
+        """
+
 
         self.battleship_cpu = []
         self.submarine_cpu  = []
