@@ -4,7 +4,6 @@ class Backend:
     """Setup the game to be played. The ship size and the ship placement for CPU 
     player and human player.
 
-
     Attributes:
         board_size(int): 6 by 6 board.
         Xcords(list): x coordinates of board game
@@ -66,7 +65,7 @@ class Backend:
         else:
             self.cpu_shots.append(shot)
             print(f"CPU miss at {shot}")
-    
+
     def player_shoot(self, player_guess):
         """
         Takes a guess from the player, validates it, checks for hits, 
@@ -108,6 +107,7 @@ class Backend:
         self.player_shots.append(shot)
         self.coordinates.discard(shot)  # Use discard to avoid KeyError if already gone
         return True  # Shot successfully processed
+    
 
     def sunk_ships(self):
         """Displays game progress"""
@@ -246,3 +246,4 @@ class Backend:
         self.battleship_cpu = self.place_ship(self.lenbattleship)
         self.submarine_cpu  = self.place_ship(self.lensubmarine)
         self.destroyer_cpu  = self.place_ship(self.lendestroyer)
+

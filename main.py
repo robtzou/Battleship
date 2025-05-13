@@ -185,6 +185,12 @@ def gameloop():
     print("\nGame Over!")
     backend.check_game_over()
     backend.sunk_ships()
+    replay = input("Would you like to play again! ")
+    while True:
+        if replay == 'y':
+            gameloop()
+        else:
+            print("Thanks for playing!")
 
 if __name__ == "__main__":
     gameloop()
