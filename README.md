@@ -22,6 +22,7 @@ First, you start by putting your name. Then the terminal will give you options f
 | place_ships | Robert | Set Operations / Sequence Unpacking |
 | boardVisual / cpuVisual | Robert | List Comprehension |
 | parse_args  | Oswalt Vasquez | ArgumentParser class  |
+|cpu_shot     | Oswalt Vasquez | Coditional expression |
 | check_game_over | Christopher Okure | Boolean |
 
 # Annotated Bibliography
