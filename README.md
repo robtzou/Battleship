@@ -23,8 +23,11 @@ First, you start by putting your name. Then the terminal will give you options f
 | boardVisual / cpuVisual | Robert | List Comprehension |
 | parse_args  | Oswalt Vasquez | ArgumentParser class  |
 |cpu_shot     | Oswalt Vasquez | Coditional expression |
-| check_game_over | Christopher Okure | Generator expressions |
+| check_game_over | Christopher Okure | set operations |
 | gameloop | Christopher Okure | Composition of two custom classes |
+|sunken_ships|Jacklyn Dang|Generator expression|
+|Player_shoot|Jacklyn Dang|conditional expression|
+
 
 # Annotated Bibliography
 
