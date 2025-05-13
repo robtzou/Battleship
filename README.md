@@ -6,6 +6,7 @@ Group Members: Robert Tzou, Jacklyn Dang, Oswalt Vasquez , Christopher Okure.
 # How to run program
 
 # How to play
+First, you start by putting your name. Then the terminal will give you options for your ship placement. You will input y or n. If you say yes, the program will continue with the game. If you put in the program will give you other placements of the ships until you find what you preferred. Then you will input a x coordinate and a y coordinate. It will say if you missed or hit a ship. If you destroy an entire ship, it will say the name of the ship that you have sunk. Until you have sunk all three ships, it will display who wins at the end of the game.
 
 # Attribution Table
 
