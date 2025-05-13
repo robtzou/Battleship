@@ -49,7 +49,16 @@ class Backend:
         self.cpu_hits    = []
 
     def cpu_shoot(self):
-        """ CPU takes a shot at player board """
+         """CPU takes a shot at player board
+        Oswalt Vasquez 
+        Technique used: coditonal expression 
+
+        CPU radomly selects a coordinate from the player board from the 
+        coordinates available.
+        after the coordinate is chosen it is removed 
+        It updates ,keeping track of hits and misses using a list
+        Messages are printed letting the person know if the CPU hit or miss  
+        """
         if not self.coordinates:
             print("CPU has no more coordinates to shoot.")
             return
