@@ -27,12 +27,6 @@ class Battleship:
         self.backend_instance = backend_instance
 
     def boardVisual(self):
-        """Displays the Player's current game board.
-        The board includes:
-            - Player ship positions (marked with "B")
-            - CPU hits on player ships (marked with "X")
-            - CPU misses (marked with "O")
-            - Empty/unknown tiles (marked with "~")
         """
         The board includes:
             - Player ship positions (marked with "B")
