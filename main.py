@@ -15,7 +15,6 @@ import sys
 
 class Battleship:
     """
-    
 
     Displays the game.
     
