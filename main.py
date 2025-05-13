@@ -12,12 +12,34 @@ from argparse import ArgumentParser
 """
 
 class Battleship:
-    """Displays the game"""
+    """Displays the game
+    Attributes:
+        backend_instance: instance of the backend game logic that stores 
+            game state, including player shots, hits, and other relevant data.
+    """
     def __init__(self, backend_instance):
+        """Initializes the board for the game
+
+        Args:
+            backend_instance: instance of the backend game logic that stores 
+                game state, including player shots, hits, and other relevant data.
+        """
         self.backend_instance = backend_instance
 
     def boardVisual(self):
-        """Player board"""
+        """Displays the Player's current game board.
+        The board includes:
+            - Player ship positions (marked with "B")
+            - CPU hits on player ships (marked with "X")
+            - CPU misses (marked with "O")
+            - Empty/unknown tiles (marked with "~")
+        """
+        The board includes:
+            - Player ship positions (marked with "B")
+            - CPU hits on player ships (marked with "X")
+            - CPU misses (marked with "O")
+            - Empty/unknown tiles (marked with "~")
+        """
         board_size = 6
 
         # New board
@@ -49,6 +71,13 @@ class Battleship:
             print(str(i + 1) + " " + " ".join(row))
 
     def cpuVisual(self):
+        """Displays the current visual state of the cpu's game board.
+        
+        This method shows the player's actions on the CPU's board, including:
+            - Hits marked with "X"
+            - Misses marked with "O"
+            - Unknown positions (marked with "~")
+        """
         board_size = 6
 
         visual_board = [["~" for _ in range(board_size)] for _ in range(board_size)]
