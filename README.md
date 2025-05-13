@@ -9,6 +9,7 @@ Group Members: Robert Tzou, Jacklyn Dang, Oswalt Vasquez , Christopher Okure.
 |-------------------|-------------|-------------------------|
 | place_ships | Robert | Set Operations / Tuple Comprehensions |
 | boardVisual / cpuVisual | Robert | List Comprehension |
+| check_game_over | Christopher Okure | set operations |
 
 # Annotated Bibliography
 
