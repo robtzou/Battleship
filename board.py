@@ -79,7 +79,7 @@ class Backend:
 
             if shot in self.player_shots:
                 print("You've already fired at this location!")
-                return False  # Already shot
+                return False  # previous shot
 
         except ValueError:
             print("Invalid input format. Use two integers like 3,5.")
@@ -120,6 +120,11 @@ class Backend:
         player_sunk = all(coord in self.cpu_hits for ship in [self.battleship, self.submarine, self.destroyer] for coord in ship)
         cpu_sunk = all(coord in self.player_hits for ship in [self.battleship_cpu, self.submarine_cpu,
                                                                self.destroyer_cpu] for coord in ship)
+        if player_sunk:
+            return "All of your ships are sunk! Better luck next time!"
+        elif cpu_sunk:
+            return "You won! Great job Captain!"   
+        
         return player_sunk or cpu_sunk
     
     def place_ship(self, length):

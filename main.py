@@ -1,7 +1,7 @@
 import random
 from board import Backend
 from argparse import ArgumentParser
-
+import sys
 
 """ 
     A one player version of speed-battleship where 
@@ -19,7 +19,6 @@ class Battleship:
     def boardVisual(self):
         """Player board"""
         board_size = 6
-
         # New board
         visual_board = [["~" for _ in range(board_size)] for _ in range(board_size)]
 
@@ -29,20 +28,16 @@ class Battleship:
         self.backend_instance.destroyer
         )
 
-        # Place ships
         for x, y in player_ships:
             visual_board[x - 1][y - 1] = "B"
             
-        # Mark CPU hits on player board
         for x, y in self.backend_instance.cpu_hits:
             visual_board[x - 1][y - 1] = "X"
             
-        # Mark CPU misses on player board
         for x, y in self.backend_instance.cpu_shots:
             if (x, y) not in self.backend_instance.cpu_hits:
                 visual_board[x - 1][y - 1] = "O"
 
-        # Display board
         print("\nYour Board:")
         print("  " + " ".join(str(i + 1) for i in range(board_size)))
         for i, row in enumerate(visual_board):
@@ -53,18 +48,13 @@ class Battleship:
 
         visual_board = [["~" for _ in range(board_size)] for _ in range(board_size)]
         
-        # We don't show CPU ships, only hits and misses
-        
-        # Mark player hits
         for x, y in self.backend_instance.player_hits:
             visual_board[x - 1][y - 1] = "X"
             
-        # Mark player misses
         for x, y in self.backend_instance.player_shots:
             if (x, y) not in self.backend_instance.player_hits:
                 visual_board[x - 1][y - 1] = "O"
         
-        # Display cpu board
         print("\nCPU Board:")
         print("  " + " ".join(str(i + 1) for i in range(board_size)))
         for i, row in enumerate(visual_board):
@@ -83,7 +73,6 @@ def coin_toss():
 def gameloop():
     """Main loop to simulate the entire Battleship game."""
 
-    import sys
     backend = Backend()
     backend.shipPlacement()
     backend.cpuPlacement()
@@ -125,13 +114,12 @@ def gameloop():
                     print("Invalid shot or already taken. Try again.")
             except (ValueError, IndexError):
                 print("Invalid format. Please enter coordinates like 2,3.")
-
+        
         # CPU Turn
         backend.cpu_shoot()
 
     print("\nGame Over!")
-    winner = backend.get_winner()
-    print(f"The winner is: {winner}")
+    backend.check_game_over()
 
 if __name__ == "__main__":
     gameloop()
