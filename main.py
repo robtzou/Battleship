@@ -27,7 +27,7 @@ class Battleship:
         self.backend_instance = backend_instance
 
     def boardVisual(self):
-        """
+        """Displays the current visual state of the player's game board.
         The board includes:
             - Player ship positions (marked with "B")
             - CPU hits on player ships (marked with "X")
