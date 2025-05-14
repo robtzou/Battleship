@@ -19,7 +19,6 @@ class Backend:
     """
     
     def __init__(self):
-        
         self.Xcord = [1,2,3,4,5,6,]
         self.Ycord = [1,2,3,4,5,6,]
         self.board_size = 6
@@ -49,15 +48,15 @@ class Backend:
         self.cpu_hits    = []
 
     def cpu_shoot(self):
-         """CPU takes a shot at player board
+        """CPU takes a shot at player board
         Oswalt Vasquez 
         Technique used: coditonal expression 
 
-        CPU radomly selects a coordinate from the player board from the 
+        CPU randomly selects a coordinate from the player board from the 
         coordinates available.
         after the coordinate is chosen it is removed 
         It updates ,keeping track of hits and misses using a list
-        Messages are printed letting the person know if the CPU hit or miss  
+        Messages are printed letting the person know if the CPU hit or miss    
         """
         if not self.coordinates:
             print("CPU has no more coordinates to shoot.")
@@ -65,6 +64,7 @@ class Backend:
         
         # Randomly select a coordinate from the available coordinates
         shot = random.choice(list(self.coordinates))
+        
         self.coordinates.discard(shot)    
 
         # Check if the shot hits any of the player's ships
@@ -77,6 +77,8 @@ class Backend:
 
     def player_shoot(self, player_guess):
         """
+        Author: Jacklyn Dang
+
         Takes a guess from the player, validates it, checks for hits, 
         and updates the game state accordingly.
 
@@ -119,22 +121,35 @@ class Backend:
     
 
     def sunk_ships(self):
-        """Displays game progress"""
+        """
+        Author: Jacklyn Dang
+        Techniques demonstrated: Generator Expression
+    
+        Check if any ships are sunk from both the player and CPU and will print a message if 
+        a ship is sunk.
+        A ship is considered sunk if all its coordinates are in the hits list.
+        This function is called after each shot.
+        """
+        print("Player Hits: ", self.player_hits)
+        print("CPU Hits: ", self.cpu_hits) 
         
-        while True:
-            if self.player_hits == self.battleship_cpu:
+        try:
+            if all(coord in self.player_hits for coord in self.battleship_cpu):
                 print("CPU: You sunk my Battleship! ")
-            if self.player_hits == self.submarine_cpu:
+            if all(coord in self.player_hits for coord in self.submarine_cpu):
                 print("CPU: You sunk my Submarine! ")
-            if self.player_hits == self.destroyer_cpu:
+            if all(coord in self.player_hits for coord in self.destroyer_cpu):
                 print("CPU: You sunk my Destroyer! ")
-            if self.player_hits == self.battleship:
+            
+            if all(pos in self.cpu_hits for pos in self.battleship):
                 print("Your Battleship has been sunk..")
-            if self.player_hits == self.submarine:
+            if all(pos in self.cpu_hits for pos in self.submarine):
                 print("Your Submarine has been sunk..")
-            if self.player_hits == self.destroyer:
+            if all(pos in self.cpu_hits for pos in self.destroyer):
                 print("Your Destroyer has been sunk..")
-            break
+                    
+        except:
+            return "Error"
 
     def check_game_over(self):
         """Author: Christopher Okure
@@ -218,7 +233,7 @@ class Backend:
             - Consumes coordinates from `self.coordinates` set.
             """
         
-        self.battleship =[]
+        self.battleship= []
         self.submarine = []
         self.destroyer = []
         
@@ -247,7 +262,6 @@ class Backend:
             - Modifies `self.coordinates` by removing occupied positions.
         """
 
-
         self.battleship_cpu = []
         self.submarine_cpu  = []
         self.destroyer_cpu  = []
@@ -255,4 +269,3 @@ class Backend:
         self.battleship_cpu = self.place_ship(self.lenbattleship)
         self.submarine_cpu  = self.place_ship(self.lensubmarine)
         self.destroyer_cpu  = self.place_ship(self.lendestroyer)
-

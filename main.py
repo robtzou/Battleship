@@ -168,13 +168,14 @@ def gameloop():
     while not backend.check_game_over():
         game.boardVisual()
         game.cpuVisual()
-
+        backend.sunk_ships()
         # Player Turn
         valid_shot = False
         while not valid_shot:
             try:
                 shot_input = input("Enter coordinates for your shot (e.g. 2,3): ")
                 valid_shot = backend.player_shoot(shot_input)
+                backend.sunk_ships()
                 if not valid_shot:
                     print("Invalid shot or already taken. Try again.")
             except (ValueError, IndexError):
@@ -182,10 +183,9 @@ def gameloop():
         
         # CPU Turn
         backend.cpu_shoot()
-
+        
     print("\nGame Over!")
     backend.check_game_over()
-    backend.sunk_ships()
     replay = input("Would you like to play again! ")
     while True:
         if replay == 'y':
